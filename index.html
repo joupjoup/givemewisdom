@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ineedaquote.pls</title>
+    <style>
+        body {
+            /* This links to the image you will upload to GitHub */
+            background: url('background.png') repeat;
+            background-color: #fdfcf0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Georgia', serif;
+            color: #4a4a4a;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        h1 { font-size: 1rem; font-weight: normal; letter-spacing: 3px; opacity: 0.5; text-transform: lowercase; margin-bottom: 2rem; }
+
+        #quote-text { font-size: 1.8rem; font-style: italic; line-height: 1.4; margin-bottom: 20px; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+
+        #quote-author { font-size: 1rem; margin-bottom: 30px; opacity: 0.8; }
+
+        button {
+            background-color: #8da399; /* Cozy Sage Green */
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(141, 163, 153, 0.3);
+        }
+
+        button:hover { background-color: #6b7e75; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+    <h1>ineedaquote.pls</h1>
+
+    <div class="container">
+        <p id="quote-text">"Click the button to find a piece of wisdom."</p>
+        <p id="quote-author"></p>
+        <button onclick="getQuote()">Give me a quote</button>
+    </div>
+
+    <script>
+        const quotes = [
+            { text: "The only journey is the one within.", author: "Rainer Maria Rilke" },
+            { text: "Act as if what you do makes a difference. It does.", author: "William James" },
+            { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
+            { text: "Nature does not hurry, yet everything is accomplished.", author: "Lao Tzu" },
+            { text: "The power of imagination makes us infinite.", author: "John Muir" },
+            { text: "Well begun is half done.", author: "Aristotle" }
+        ];
+
+        function getQuote() {
+            const random = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote-text').innerText = `"${random.text}"`;
+            document.getElementById('quote-author').innerText = `— ${random.author}`;
+        }
+    </script>
+</body>
+</html>
