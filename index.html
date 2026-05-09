@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ineedaquote.pls</title>
+    <!-- Importing a cozy, wisdomic serif font -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-sage: #8da399;
-            --deep-sage: #6b7e75;
-            --warm-cream: #fdfcf0;
-            --text-main: #3d3d3d;
+            --sage: #8da399;
+            --dusty-rose: #b08d8d;
+            --cream: #fdfcf0;
+            --text-color: #4a4a4a;
         }
 
         body {
@@ -20,116 +22,109 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: 'Lora', 'Georgia', serif;
-            color: var(--text-main);
-            overflow: hidden;
-            background: url('background.png') repeat;
+            font-family: 'Lora', serif;
+            color: var(--text-color);
+            /* NATURAL ANIMATED BACKGROUND */
+            background: linear-gradient(120deg, var(--cream) 0%, #e8e4d9 100%);
+            background-attachment: fixed;
             position: relative;
+            overflow: hidden;
         }
 
-        /* ANIMATED GRADIENT OVERLAY */
+        /* The "Wisdomic" Animated Background Layer */
         body::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(-45deg, rgba(253, 252, 240, 0.4), rgba(141, 163, 153, 0.2), rgba(230, 210, 180, 0.2));
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
             z-index: -1;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            background: radial-gradient(circle at 30% 30%, rgba(141, 163, 153, 0.2), transparent 40%),
+                        radial-gradient(circle at 70% 70%, rgba(176, 141, 141, 0.2), transparent 40%),
+                        url('background.png') repeat; /* Your pattern image still sits behind the colors */
+            background-blend-mode: multiply;
+            filter: blur(40px);
+            opacity: 0.8;
+            /* No keyframe animation here as requested - just a static, deep textured feel */
         }
 
         h1 { 
             font-size: 0.9rem; 
-            font-weight: 300; 
-            letter-spacing: 6px; 
-            opacity: 0.5; 
+            font-weight: 400; 
+            letter-spacing: 5px; 
+            opacity: 0.4; 
             text-transform: lowercase; 
             margin-bottom: 2rem;
-            animation: fadeInDown 1.5s ease;
+            position: relative;
         }
 
-        /* FLOATING GLASS CONTAINER */
+        /* THE CONTAINER - Minimalist Form */
         .container {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             padding: 4rem 3rem;
-            border-radius: 40px;
-            max-width: 600px;
+            border-radius: 20px;
+            max-width: 650px;
             width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             text-align: center;
-            transform: translateY(0);
-            transition: transform 0.5s ease;
-            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            position: relative;
         }
 
         #quote-display {
-            min-height: 200px;
+            min-height: 220px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         #quote-text { 
-            font-size: 2rem; 
+            font-size: 1.9rem; 
             font-style: italic; 
-            line-height: 1.4; 
+            line-height: 1.5; 
             margin: 0;
-            transition: all 0.6s ease;
-            opacity: 1;
+            transition: opacity 0.8s ease, filter 0.8s ease;
         }
 
         #quote-author { 
-            font-size: 0.8rem; 
-            margin-top: 25px; 
+            font-size: 0.85rem; 
+            margin-top: 30px; 
             font-weight: 600;
-            opacity: 0.5; 
-            letter-spacing: 3px;
+            opacity: 0.6; 
+            letter-spacing: 2px;
             text-transform: uppercase;
+            transition: opacity 0.8s ease;
         }
 
-        /* THE ALIVE BUTTON */
+        /* THE BUTTON - Sage to Dusty Rose transition */
         button {
-            margin-top: 40px;
-            background: var(--primary-sage);
+            margin-top: 50px;
+            background: var(--sage);
             color: white;
             border: none;
-            padding: 20px 50px;
-            font-size: 1rem;
+            padding: 18px 45px;
+            font-size: 0.9rem;
             font-family: inherit;
-            border-radius: 100px;
+            letter-spacing: 2px;
+            border-radius: 4px; /* More formal, less 'bubbly' shape */
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 25px rgba(141, 163, 153, 0.4);
+            transition: background 0.6s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         button:hover {
-            background: var(--deep-sage);
-            transform: scale(1.05) rotate(-1deg);
-            box-shadow: 0 12px 35px rgba(141, 163, 153, 0.6);
+            background: var(--dusty-rose);
+            transform: translateY(-2px);
         }
 
-        button:active {
-            transform: scale(0.95);
+        /* Transition States */
+        .hidden {
+            opacity: 0;
+            filter: blur(5px);
         }
-
-        /* SIMPLE FADE ANIMATIONS */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 0.5; transform: translateY(0); }
-        }
-
-        .fade-out { opacity: 0; transform: scale(0.95); filter: blur(10px); }
     </style>
 </head>
 <body>
@@ -138,10 +133,10 @@
 
     <div class="container">
         <div id="quote-display">
-            <p id="quote-text">"Tap for a moment of clarity."</p>
-            <p id="quote-author"></p>
+            <p id="quote-text">"Patience is the companion of wisdom."</p>
+            <p id="quote-author">— Saint Augustine</p>
         </div>
-        <button onclick="getQuote()">GIVE ME WISDOM</button>
+        <button onclick="getQuote()">SEEK WISDOM</button>
     </div>
 
     <script>
@@ -153,27 +148,27 @@
             { text: "Quiet the mind, and the soul will speak.", author: "Ma Jaya Sati Bhagavati" },
             { text: "Even the darkest night will end and the sun will rise.", author: "Victor Hugo" },
             { text: "Be happy for this moment. This moment is your life.", author: "Omar Khayyam" },
-            { text: "Simplify, simplify.", author: "Henry David Thoreau" }
-            // Add your other 150 quotes here!
+            { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" }
+            // Add your full list of 150 quotes here!
         ];
 
         function getQuote() {
             const textEl = document.getElementById('quote-text');
             const authorEl = document.getElementById('quote-author');
             
-            // Add fade class
-            textEl.classList.add('fade-out');
-            authorEl.classList.add('fade-out');
+            // Apply hidden state
+            textEl.classList.add('hidden');
+            authorEl.classList.add('hidden');
 
             setTimeout(() => {
                 const random = quotes[Math.floor(Math.random() * quotes.length)];
                 textEl.innerText = `"${random.text}"`;
                 authorEl.innerText = `— ${random.author}`;
                 
-                // Remove fade class to trigger re-entry
-                textEl.classList.remove('fade-out');
-                authorEl.classList.remove('fade-out');
-            }, 500);
+                // Reveal
+                textEl.classList.remove('hidden');
+                authorEl.classList.remove('hidden');
+            }, 800);
         }
     </script>
 </body>
