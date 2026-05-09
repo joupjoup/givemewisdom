@@ -4,102 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ineedaquote.pls</title>
-    <!-- Importing a cozy, wisdomic serif font -->
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --sage: #8da399;
             --dusty-rose: #b08d8d;
             --cream: #fdfcf0;
-            --text-color: #4a4a4a;
+            --text-color: #ffffff; /* Switched to white for better contrast over video */
         }
 
-        body {
+        body, html {
             margin: 0;
-            padding: 20px;
-            min-height: 100vh;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Lora', serif;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: 'Lora', serif;
-            color: var(--text-color);
-            /* NATURAL ANIMATED BACKGROUND */
-            background: linear-gradient(120deg, var(--cream) 0%, #e8e4d9 100%);
-            background-attachment: fixed;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* The "Wisdomic" Animated Background Layer */
-        body::before {
-            content: "";
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
+        /* VIDEO BACKGROUND STYLING */
+        #video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -2;
+            object-fit: cover;
+            filter: brightness(60%); /* Darkens video so text pops */
+        }
+
+        /* OVERLAY FOR TEXTURE */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
             z-index: -1;
-            background: radial-gradient(circle at 30% 30%, rgba(141, 163, 153, 0.2), transparent 40%),
-                        radial-gradient(circle at 70% 70%, rgba(176, 141, 141, 0.2), transparent 40%),
-                        url('background.png') repeat; /* Your pattern image still sits behind the colors */
-            background-blend-mode: multiply;
-            filter: blur(40px);
-            opacity: 0.8;
-            /* No keyframe animation here as requested - just a static, deep textured feel */
         }
 
         h1 { 
+            position: absolute;
+            top: 30px;
             font-size: 0.9rem; 
             font-weight: 400; 
             letter-spacing: 5px; 
-            opacity: 0.4; 
-            text-transform: lowercase; 
-            margin-bottom: 2rem;
-            position: relative;
+            opacity: 0.7; 
+            color: white;
+            text-transform: lowercase;
         }
 
-        /* THE CONTAINER - Minimalist Form */
+        /* GLASS CONTAINER */
         .container {
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
             padding: 4rem 3rem;
             border-radius: 20px;
-            max-width: 650px;
-            width: 90%;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 700px;
+            width: 85%;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         }
 
         #quote-display {
-            min-height: 220px;
+            min-height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         #quote-text { 
-            font-size: 1.9rem; 
+            font-size: 2.1rem; 
             font-style: italic; 
-            line-height: 1.5; 
+            line-height: 1.4; 
             margin: 0;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
             transition: opacity 0.8s ease, filter 0.8s ease;
         }
 
         #quote-author { 
-            font-size: 0.85rem; 
+            font-size: 0.9rem; 
             margin-top: 30px; 
             font-weight: 600;
-            opacity: 0.6; 
+            opacity: 0.8; 
+            color: white;
             letter-spacing: 2px;
             text-transform: uppercase;
             transition: opacity 0.8s ease;
         }
 
-        /* THE BUTTON - Sage to Dusty Rose transition */
         button {
             margin-top: 50px;
             background: var(--sage);
@@ -109,54 +110,200 @@
             font-size: 0.9rem;
             font-family: inherit;
             letter-spacing: 2px;
-            border-radius: 4px; /* More formal, less 'bubbly' shape */
+            border-radius: 4px;
             cursor: pointer;
-            transition: background 0.6s ease, transform 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.5s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         button:hover {
             background: var(--dusty-rose);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
-        /* Transition States */
-        .hidden {
-            opacity: 0;
-            filter: blur(5px);
-        }
+        .hidden { opacity: 0; filter: blur(10px); }
     </style>
 </head>
 <body>
+
+    <!-- PASTE YOUR VIDEO LINK IN 'SRC' BELOW -->
+    <video autoplay muted loop id="video-bg">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-light-passing-through-branches-and-leaves-23013-large.mp4" type="video/mp4">
+    </video>
+    
+    <div class="overlay"></div>
 
     <h1>ineedaquote.pls</h1>
 
     <div class="container">
         <div id="quote-display">
-            <p id="quote-text">"Patience is the companion of wisdom."</p>
-            <p id="quote-author">— Saint Augustine</p>
+            <p id="quote-text">"Nature does not hurry, yet everything is accomplished."</p>
+            <p id="quote-author">— Lao Tzu</p>
         </div>
         <button onclick="getQuote()">SEEK WISDOM</button>
     </div>
 
     <script>
         const quotes = [
-            { text: "Nature does not hurry, yet everything is accomplished.", author: "Lao Tzu" },
-            { text: "The stars don't look bigger, but they do look brighter.", author: "Sally Ride" },
+            { text: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu" },
+            { text: "He who has a why to live can bear almost any how.", author: "Friedrich Nietzsche" },
+            { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
+            { text: "Knowing yourself is the beginning of all wisdom.", author: "Socrates" },
+            { text: "The only constant in life is change.", author: "Heraclitus" },
+            { text: "Waste no more time arguing what a good man should be. Be one.", author: "Marcus Aurelius" },
+            { text: "Happiness depends upon ourselves.", author: "Aristotle" },
+            { text: "The root of suffering is attachment.", author: "The Buddha" },
+            { text: "Silence is a source of great strength.", author: "Lao Tzu" },
+            { text: "He who is brave is free.", author: "Seneca" },
+            { text: "Life is really simple, but we insist on making it complicated.", author: "Confucius" },
+            { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+            { text: "To be calm is the highest achievement of the self.", author: "Zen Proverb" },
+            { text: "The mind is everything. What you think you become.", author: "The Buddha" },
+            { text: "He who conquers himself is the mightiest warrior.", author: "Confucius" },
+            { text: "Not all those who wander are lost.", author: "J.R.R. Tolkien" },
+            { text: "I am not afraid of storms, for I am learning how to sail my ship.", author: "Louisa May Alcott" },
+            { text: "It is never too late to be what you might have been.", author: "George Eliot" },
+            { text: "Definitions belong to the definers, not the defined.", author: "Toni Morrison" },
+            { text: "Stay gold, Ponyboy.", author: "S.E. Hinton" },
+            { text: "Even the darkest night will end and the sun will rise.", author: "Victor Hugo" },
+            { text: "Look deep into nature, and then you will understand everything better.", author: "Albert Einstein" },
+            { text: "Somewhere, something incredible is waiting to be known.", author: "Carl Sagan" },
+            { text: "Imagination is more important than knowledge.", author: "Albert Einstein" },
+            { text: "Nature is not a place to visit. It is home.", author: "Gary Snyder" },
+            { text: "A smooth sea never made a skilled sailor.", author: "African Proverb" },
             { text: "Fall seven times, stand up eight.", author: "Japanese Proverb" },
+            { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+            { text: "Turn your face to the sun and the shadows fall behind you.", author: "Maori Proverb" },
+            { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
+            { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
+            { text: "Success is not final, failure is not fatal: it is the courage to continue.", author: "Winston Churchill" },
+            { text: "Simplify, simplify.", author: "Henry David Thoreau" },
+            { text: "Be happy for this moment. This moment is your life.", author: "Omar Khayyam" },
+            { text: "Almost everything will work again if you unplug it for a few minutes.", author: "Anne Lamott" },
+            { text: "Be kind, for everyone you meet is fighting a hard battle.", author: "Plato" },
+            { text: "In a gentle way, you can shake the world.", author: "Mahatma Gandhi" },
+            { text: "Feet, what do I need them for if I have wings to fly?", author: "Frida Kahlo" },
+            { text: "Hope is the thing with feathers that perches in the soul.", author: "Emily Dickinson" },
+            { text: "Light tomorrow with today.", author: "Elizabeth Barrett Browning" },
+            { text: "Water is the driving force of all nature.", author: "Leonardo da Vinci" },
+            { text: "The unexamined life is not worth living.", author: "Socrates" },
+            { text: "The world breaks everyone and many are strong at the broken places.", author: "Ernest Hemingway" },
+            { text: "I can bear any pain as long as it has meaning.", author: "Haruki Murakami" },
+            { text: "The cosmos is within us. We are made of star-stuff.", author: "Carl Sagan" },
+            { text: "He who returns from a journey is not the same as he who left.", author: "Chinese Proverb" },
+            { text: "A book is like a garden carried in the pocket.", author: "Chinese Proverb" },
+            { text: "Success is the ability to go from failure to failure without losing enthusiasm.", author: "Winston Churchill" },
+            { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+            { text: "Everything has beauty, but not everyone sees it.", author: "Confucius" },
+            { text: "One day I will find the right words, and they will be simple.", author: "Jack Kerouac" },
+            { text: "There is some good in this world, and it's worth fighting for.", author: "J.R.R. Tolkien" },
+            { text: "Whatever you are, be a good one.", author: "Abraham Lincoln" },
+            { text: "Science is a way of thinking much more than it is a body of knowledge.", author: "Carl Sagan" },
+            { text: "In all things of nature there is something of the marvelous.", author: "Aristotle" },
+            { text: "The earth has music for those who listen.", author: "William Shakespeare" },
+            { text: "One finger cannot lift a pebble.", author: "Hopi Proverb" },
+            { text: "A joy shared is a joy doubled.", author: "Goethe" },
+            { text: "Everything you’ve ever wanted is on the other side of fear.", author: "George Addair" },
             { text: "What we achieve inwardly will change outer reality.", author: "Plutarch" },
             { text: "Quiet the mind, and the soul will speak.", author: "Ma Jaya Sati Bhagavati" },
-            { text: "Even the darkest night will end and the sun will rise.", author: "Victor Hugo" },
-            { text: "Be happy for this moment. This moment is your life.", author: "Omar Khayyam" },
-            { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" }
-            // Add your full list of 150 quotes here!
+            { text: "Life is a balance of holding on and letting go.", author: "Rumi" },
+            { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise.", author: "Rumi" },
+            { text: "To thine own self be true.", author: "William Shakespeare" },
+            { text: "Kindness is the language which the deaf can hear and the blind can see.", author: "Mark Twain" },
+            { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+            { text: "No one can make you feel inferior without your consent.", author: "Eleanor Roosevelt" },
+            { text: "The most common way people give up their power is by thinking they don't have any.", author: "Alice Walker" },
+            { text: "Freedom is not worth having if it does not include the freedom to make mistakes.", author: "Mahatma Gandhi" },
+            { text: "The sun is new each day.", author: "Heraclitus" },
+            { text: "Gratitude turns what we have into enough.", author: "Aesop" },
+            { text: "Every moment is a fresh beginning.", author: "T.S. Eliot" },
+            { text: "Speak the truth, even if your voice shakes.", author: "Maggie Smith" },
+            { text: "If you want to go far, go together.", author: "African Proverb" },
+            { text: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt" },
+            { text: "I have not failed. I've just found 10,000 ways that won't work.", author: "Thomas Edison" },
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "The forest provides for the person who protects it.", author: "Thai Proverb" },
+            { text: "Teachers open the door, but you must enter by yourself.", author: "Chinese Proverb" },
+            { text: "A heart of gold is where the light begins.", author: "Rumi" },
+            { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+            { text: "Definitions belong to the definers, not the defined.", author: "Toni Morrison" },
+            { text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
+            { text: "Integrity is doing the right thing, even when no one is watching.", author: "C.S. Lewis" },
+            { text: "Courage is grace under pressure.", author: "Ernest Hemingway" },
+            { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+            { text: "Don't count the days, make the days count.", author: "Muhammad Ali" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "Nature never hurries, yet everything is accomplished.", author: "Lao Tzu" },
+            { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
+            { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+            { text: "Do not go where the path may lead, go instead where there is no path.", author: "Ralph Waldo Emerson" },
+            { text: "Happiness is not something ready-made. It comes from your own actions.", author: "Dalai Lama" },
+            { text: "The best way to find yourself is to lose yourself in the service of others.", author: "Mahatma Gandhi" },
+            { text: "Life is really simple, but we insist on making it complicated.", author: "Confucius" },
+            { text: "The art of being wise is the art of knowing what to overlook.", author: "William James" },
+            { text: "Believe in yourself and all that you are.", author: "Christian D. Larson" },
+            { text: "To be yourself in a world trying to make you something else is an accomplishment.", author: "Emerson" },
+            { text: "Love all, trust a few, do wrong to none.", author: "William Shakespeare" },
+            { text: "Dream as if you'll live forever. Live as if you'll die today.", author: "James Dean" },
+            { text: "The power of imagination makes us infinite.", author: "John Muir" },
+            { text: "Keep your face always toward the sunshine - and shadows will fall behind you.", author: "Whitman" },
+            { text: "What we think, we become.", author: "Buddha" },
+            { text: "The only real mistake is the one from which we learn nothing.", author: "Henry Ford" },
+            { text: "Your big opportunity may be right where you are now.", author: "Napoleon Hill" },
+            { text: "Everything has beauty, but not everyone sees it.", author: "Confucius" },
+            { text: "He who has a why can bear any how.", author: "Friedrich Nietzsche" },
+            { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+            { text: "Life is a succession of lessons which must be lived to be understood.", author: "Emerson" },
+            { text: "Truth is powerful and it prevails.", author: "Sojourner Truth" },
+            { text: "Don't judge each day by the harvest you reap but by the seeds you plant.", author: "Stevenson" },
+            { text: "Peace begins with a smile.", author: "Mother Teresa" },
+            { text: "You must do the things you think you cannot do.", author: "Eleanor Roosevelt" },
+            { text: "The stars are the land-marks of the universe.", author: "Sir John Herschel" },
+            { text: "The mind is its own place, and in itself can make a heaven of hell.", author: "Milton" },
+            { text: "If you want to live a happy life, tie it to a goal, not to people or things.", author: "Einstein" },
+            { text: "The only limit to our realization of tomorrow will be our doubts of today.", author: "FDR" },
+            { text: "May you live all the days of your life.", author: "Jonathan Swift" },
+            { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+            { text: "Success usually comes to those who are too busy to be looking for it.", author: "Thoreau" },
+            { text: "All our dreams can come true if we have the courage to pursue them.", author: "Walt Disney" },
+            { text: "If you are not willing to risk the usual, you will have to settle for the ordinary.", author: "Jim Rohn" },
+            { text: "The ones who are crazy enough to think they can change the world are the ones who do.", author: "Jobs" },
+            { text: "Try not to become a man of success. Rather become a man of value.", author: "Einstein" },
+            { text: "Small deeds done are better than great deeds planned.", author: "Peter Marshall" },
+            { text: "Your life only gets better when you get better.", author: "Brian Tracy" },
+            { text: "Everything you can imagine is real.", author: "Pablo Picasso" },
+            { text: "It’s not what you look at that matters, it’s what you see.", author: "Thoreau" },
+            { text: "Do one thing every day that scares you.", author: "Eleanor Roosevelt" },
+            { text: "The purpose of our lives is to be happy.", author: "Dalai Lama" },
+            { text: "The best revenge is massive success.", author: "Frank Sinatra" },
+            { text: "A person who never made a mistake never tried anything new.", author: "Einstein" },
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Proverb" },
+            { text: "In the end, it’s not the years in your life that count. It’s the life in your years.", author: "Lincoln" },
+            { text: "Life is either a daring adventure or nothing at all.", author: "Helen Keller" },
+            { text: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
+            { text: "Many of life’s failures are people who did not realize how close they were to success.", author: "Edison" },
+            { text: "If you want to be happy, be.", author: "Leo Tolstoy" },
+            { text: "The best way to predict the future is to create it.", author: "Abraham Lincoln" },
+            { text: "Do not wait for leaders; do it alone, person to person.", author: "Mother Teresa" },
+            { text: "The first step is you have to say that you can.", author: "Will Smith" },
+            { text: "Our greatest glory is not in never falling, but in rising every time we fall.", author: "Confucius" },
+            { text: "An unexamined life is not worth living.", author: "Socrates" },
+            { text: "The mind is everything. What you think you become.", author: "Buddha" },
+            { text: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Gandhi" },
+            { text: "The journey of a thousand miles begins with one step.", author: "Lao Tzu" },
+            { text: "Knowledge is power.", author: "Francis Bacon" },
+            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Churchill" },
+            { text: "What we think, we become.", author: "Buddha" },
+            { text: "A smooth sea never made a skilled sailor.", author: "African Proverb" },
+            { text: "Fall seven times, stand up eight.", author: "Japanese Proverb" }
         ];
 
         function getQuote() {
             const textEl = document.getElementById('quote-text');
             const authorEl = document.getElementById('quote-author');
             
-            // Apply hidden state
             textEl.classList.add('hidden');
             authorEl.classList.add('hidden');
 
@@ -165,7 +312,6 @@
                 textEl.innerText = `"${random.text}"`;
                 authorEl.innerText = `— ${random.author}`;
                 
-                // Reveal
                 textEl.classList.remove('hidden');
                 authorEl.classList.remove('hidden');
             }, 800);
