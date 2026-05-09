@@ -5,50 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ineedaquote.pls</title>
     <style>
+        /* THE COZY DESIGN */
         body {
-            /* This links to the image you will upload to GitHub */
             background: url('background.png') repeat;
             background-color: #fdfcf0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
             font-family: 'Georgia', serif;
             color: #4a4a4a;
             text-align: center;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 3rem;
-            border-radius: 20px;
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.75);
+            padding: 3.5rem;
+            border-radius: 30px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.5);
+            box-sizing: border-box;
         }
 
-        h1 { font-size: 1rem; font-weight: normal; letter-spacing: 3px; opacity: 0.5; text-transform: lowercase; margin-bottom: 2rem; }
+        h1 { 
+            font-size: 1rem; 
+            font-weight: normal; 
+            letter-spacing: 5px; 
+            opacity: 0.4; 
+            text-transform: lowercase; 
+            margin-bottom: 3rem; 
+        }
 
-        #quote-text { font-size: 1.8rem; font-style: italic; line-height: 1.4; margin-bottom: 20px; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        #quote-text { 
+            font-size: 1.8rem; 
+            font-style: italic; 
+            line-height: 1.6; 
+            margin-bottom: 25px; 
+            min-height: 180px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            transition: opacity 0.4s ease;
+        }
 
-        #quote-author { font-size: 1rem; margin-bottom: 30px; opacity: 0.8; }
+        #quote-author { 
+            font-size: 0.95rem; 
+            margin-bottom: 45px; 
+            font-weight: bold;
+            opacity: 0.6; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: opacity 0.4s ease;
+        }
 
         button {
-            background-color: #8da399; /* Cozy Sage Green */
+            background-color: #8da399; /* Sage Green */
             color: white;
             border: none;
-            padding: 18px 35px;
+            padding: 22px 45px;
             font-size: 1rem;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(141, 163, 153, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 20px rgba(141, 163, 153, 0.3);
+            letter-spacing: 1px;
         }
 
-        button:hover { background-color: #6b7e75; transform: translateY(-2px); }
+        button:hover { 
+            background-color: #6b7e75; 
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 30px rgba(141, 163, 153, 0.4);
+        }
+
+        button:active { transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -56,20 +91,14 @@
     <h1>ineedaquote.pls</h1>
 
     <div class="container">
-        <p id="quote-text">"Click the button to find a piece of wisdom."</p>
+        <p id="quote-text">"The wisdom you need is just a click away."</p>
         <p id="quote-author"></p>
         <button onclick="getQuote()">Give me a quote</button>
     </div>
 
     <script>
         const quotes = [
-            { text: "The only journey is the one within.", author: "Rainer Maria Rilke" },
-            { text: "Act as if what you do makes a difference. It does.", author: "William James" },
-            { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
-            { text: "Nature does not hurry, yet everything is accomplished.", author: "Lao Tzu" },
-            { text: "The power of imagination makes us infinite.", author: "John Muir" },
-            { text: "Well begun is half done.", author: "Aristotle" }
-            // --- ANCIENT WISDOM ---
+            // ANCIENT WISDOM
             { text: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu" },
             { text: "He who has a why to live can bear almost any how.", author: "Friedrich Nietzsche" },
             { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
@@ -81,155 +110,83 @@
             { text: "The root of suffering is attachment.", author: "The Buddha" },
             { text: "Silence is a source of great strength.", author: "Lao Tzu" },
             { text: "He who is brave is free.", author: "Seneca" },
-            { text: "Difficulties strengthen the mind, as labor does the body.", author: "Seneca" },
-            { text: "A room without books is like a body without a soul.", author: "Cicero" },
             { text: "Life is really simple, but we insist on making it complicated.", author: "Confucius" },
-            { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
-            { text: "Everything has beauty, but not everyone sees it.", author: "Confucius" },
-            { text: "To be calm is the highest achievement of the self.", author: "Zen Proverb" },
             { text: "The mind is everything. What you think you become.", author: "The Buddha" },
-            { text: "The best revenge is not to be like your enemy.", author: "Marcus Aurelius" },
             { text: "He who conquers himself is the mightiest warrior.", author: "Confucius" },
+            { text: "The unexamined life is not worth living.", author: "Socrates" },
 
-            // --- LITERARY & POETIC ---
+            // LITERARY
             { text: "Not all those who wander are lost.", author: "J.R.R. Tolkien" },
             { text: "I am not afraid of storms, for I am learning how to sail my ship.", author: "Louisa May Alcott" },
-            { text: "Whatever our souls are made of, his and mine are the same.", author: "Emily Brontë" },
-            { text: "Grow old along with me! The best is yet to be.", author: "Robert Browning" },
             { text: "The world breaks everyone and afterward many are strong at the broken places.", author: "Ernest Hemingway" },
             { text: "It is never too late to be what you might have been.", author: "George Eliot" },
-            { text: "There is no greater agony than bearing an untold story inside you.", author: "Maya Angelou" },
-            { text: "I would rather die a meaningful death than live a meaningless life.", author: "Corazon Aquino" },
-            { text: "We accept the love we think we deserve.", author: "Stephen Chbosky" },
             { text: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" },
-            { text: "Definitions belong to the definers, not the defined.", author: "Toni Morrison" },
             { text: "Stay gold, Ponyboy.", author: "S.E. Hinton" },
-            { text: "The only way out of the labyrinth of suffering is to forgive.", author: "John Green" },
             { text: "Tomorrow is always fresh, with no mistakes in it yet.", author: "L.M. Montgomery" },
-            { text: "Whatever you are, be a good one.", author: "Abraham Lincoln" },
-            { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
-            { text: "If you want to know what a man's like, take a good look at how he treats his inferiors.", author: "J.K. Rowling" },
             { text: "Even the darkest night will end and the sun will rise.", author: "Victor Hugo" },
             { text: "I can bear any pain as long as it has meaning.", author: "Haruki Murakami" },
-            { text: "For whatever we lose (like a you or a me), it's always ourselves we find in the sea.", author: "E.E. Cummings" },
+            { text: "There is some good in this world, and it's worth fighting for.", author: "J.R.R. Tolkien" },
 
-            // --- SCIENCE & NATURE ---
+            // SCIENCE & NATURE
             { text: "Look deep into nature, and then you will understand everything better.", author: "Albert Einstein" },
             { text: "Somewhere, something incredible is waiting to be known.", author: "Carl Sagan" },
-            { text: "Science is a way of thinking much more than it is a body of knowledge.", author: "Carl Sagan" },
-            { text: "Nature never hurries, yet everything is accomplished.", author: "Lao Tzu" },
-            { text: "The earth has music for those who listen.", author: "William Shakespeare" },
-            { text: "In all things of nature there is something of the marvelous.", author: "Aristotle" },
-            { text: "The stars don't look bigger, but they do look brighter.", author: "Sally Ride" },
             { text: "Imagination is more important than knowledge.", author: "Albert Einstein" },
-            { text: "The good thing about science is that it's true whether or not you believe in it.", author: "Neil deGrasse Tyson" },
-            { text: "Nature is not a place to visit. It is home.", author: "Gary Snyder" },
-            { text: "Every flower is a soul blossoming in nature.", author: "Gerard De Nerval" },
-            { text: "The sun does not shine for a few trees and flowers, but for the wide world's joy.", author: "Henry Ward Beecher" },
-            { text: "Study nature, love nature, stay close to nature. It will never fail you.", author: "Frank Lloyd Wright" },
-            { text: "A weed is no more than a flower in the wrong place.", author: "George Washington Carver" },
-            { text: "To make a prairie it takes a clover and one bee.", author: "Emily Dickinson" },
+            { text: "The earth has music for those who listen.", author: "William Shakespeare" },
+            { text: "The cosmos is within us. We are made of star-stuff.", author: "Carl Sagan" },
+            { text: "Water is the driving force of all nature.", author: "Leonardo da Vinci" },
 
-            // --- CULTURAL PROVERBS ---
+            // PROVERBS
             { text: "A smooth sea never made a skilled sailor.", author: "African Proverb" },
             { text: "Fall seven times, stand up eight.", author: "Japanese Proverb" },
             { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
-            { text: "He who returns from a journey is not the same as he who left.", author: "Chinese Proverb" },
-            { text: "Do not push the river; it will flow by itself.", author: "Polish Proverb" },
-            { text: "A bird does not sing because it has an answer, it sings because it has a song.", author: "Chinese Proverb" },
             { text: "If you want to go fast, go alone. If you want to go far, go together.", author: "African Proverb" },
-            { text: "Coffee and love taste best when they are hot.", author: "Ethiopian Proverb" },
-            { text: "Even a small star shines in the darkness.", author: "Finnish Proverb" },
-            { text: "One finger cannot lift a pebble.", author: "Hopi Proverb" },
-            { text: "A book is like a garden carried in the pocket.", author: "Chinese Proverb" },
             { text: "Turn your face to the sun and the shadows fall behind you.", author: "Maori Proverb" },
-            { text: "Words are like wind; once spoken, they cannot be caught.", author: "Russian Proverb" },
-            { text: "The forest provides for the person who protects it.", author: "Thai Proverb" },
-            { text: "Teachers open the door, but you must enter by yourself.", author: "Chinese Proverb" },
 
-            // --- MODERN LEADERSHIP & SUCCESS ---
+            // MODERN LEADERSHIP
             { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
             { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
             { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
-            { text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
             { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
-            { text: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt" },
-            { text: "Don't count the days, make the days count.", author: "Muhammad Ali" },
-            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
-            { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" },
-            { text: "Everything you’ve ever wanted is on the other side of fear.", author: "George Addair" },
-            { text: "I have not failed. I've just found 10,000 ways that won't work.", author: "Thomas Edison" },
             { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
-            { text: "What we achieve inwardly will change outer reality.", author: "Plutarch" },
 
-            // --- MINDFULNESS & COZY VIBES ---
+            // MINDFULNESS
             { text: "Simplify, simplify.", author: "Henry David Thoreau" },
-            { text: "The art of being wise is the art of knowing what to overlook.", author: "William James" },
-            { text: "Inner peace begins the moment you choose not to allow another person or event to control your emotions.", author: "Pema Chödrön" },
             { text: "Breathing in, I calm body and mind. Breathing out, I smile.", author: "Thich Nhat Hanh" },
-            { text: "Be happy for this moment. This moment is your life.", author: "Omar Khayyam" },
-            { text: "Quiet the mind, and the soul will speak.", author: "Ma Jaya Sati Bhagavati" },
-            { text: "Small things become great when done with love.", author: "Unknown" },
-            { text: "There is more to life than increasing its speed.", author: "Mahatma Gandhi" },
             { text: "Calm is a superpower.", author: "Brené Brown" },
-            { text: "Rest is not idleness.", author: "John Lubbock" },
-            { text: "Peace is a daily, a weekly, a monthly process.", author: "John F. Kennedy" },
-            { text: "Almost everything will work again if you unplug it for a few minutes, including you.", author: "Anne Lamott" },
             { text: "Life is a balance of holding on and letting go.", author: "Rumi" },
-            { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" },
-            { text: "Beauty surrounds us, but usually we need to be walking in a garden to know it.", author: "Rumi" },
+            { text: "Almost everything will work again if you unplug it for a few minutes.", author: "Anne Lamott" },
 
-            // --- PERSPECTIVE & CHARACTER ---
+            // CHARACTER
             { text: "Be kind, for everyone you meet is fighting a hard battle.", author: "Plato" },
-            { text: "The true measure of a man is how he treats someone who can do him absolutely no good.", author: "Samuel Johnson" },
-            { text: "Integrity is doing the right thing, even when no one is watching.", author: "C.S. Lewis" },
-            { text: "No one can make you feel inferior without your consent.", author: "Eleanor Roosevelt" },
-            { text: "Courage is grace under pressure.", author: "Ernest Hemingway" },
             { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
-            { text: "To thine own self be true.", author: "William Shakespeare" },
-            { text: "A friend is someone who knows all about you and still loves you.", author: "Elbert Hubbard" },
-            { text: "Life is 10% what happens to us and 90% how we react to it.", author: "Charles R. Swindoll" },
-            { text: "Spread love everywhere you go. Let no one ever come to you without leaving happier.", author: "Mother Teresa" },
-            { text: "Kindness is the language which the deaf can hear and the blind can see.", author: "Mark Twain" },
-            { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-            { text: "I am the master of my fate, I am the captain of my soul.", author: "William Ernest Henley" },
+            { text: "No one can make you feel inferior without your consent.", author: "Eleanor Roosevelt" },
             { text: "In a gentle way, you can shake the world.", author: "Mahatma Gandhi" },
-            { text: "You must be the change you wish to see in the world.", author: "Mahatma Gandhi" },
-
-            // --- ADDITIONAL DIVERSE VOICES ---
-            { text: "Our lives begin to end the day we become silent about things that matter.", author: "Martin Luther King Jr." },
-            { text: "Feet, what do I need them for if I have wings to fly?", author: "Frida Kahlo" },
-            { text: "The most common way people give up their power is by thinking they don't have any.", author: "Alice Walker" },
-            { text: "Freedom is not worth having if it does not include the freedom to make mistakes.", author: "Mahatma Gandhi" },
-            { text: "I am my own muse, the subject I know best.", author: "Frida Kahlo" },
             { text: "Nothing will work unless you do.", author: "Maya Angelou" },
-            { text: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
-            { text: "A girl should be two things: who and what she wants.", author: "Coco Chanel" },
-            { text: "Change your thoughts and you change your world.", author: "Norman Vincent Peale" },
-            { text: "The light of the world will rise from the east.", author: "Indian Proverb" },
-            { text: "Don't sit down and wait for the opportunities to come. Get up and make them.", author: "Madam C.J. Walker" },
-            { text: "Power is not given to you. You have to take it.", author: "Beyoncé" },
             { text: "If they don't give you a seat at the table, bring a folding chair.", author: "Shirley Chisholm" },
-            { text: "The question isn't who is going to let me; it's who is going to stop me.", author: "Ayn Rand" },
-            { text: "The only limit to your impact is your imagination and commitment.", author: "Tony Robbins" },
-            { text: "Believe in yourself and all that you are.", author: "Christian D. Larson" },
-            { text: "Your dream doesn't have an expiration date. Take a deep breath and try again.", author: "Unknown" },
-            { text: "The sun is new each day.", author: "Heraclitus" },
-            { text: "Life is a succession of lessons which must be lived to be understood.", author: "Ralph Waldo Emerson" },
-            { text: "In the end, it's not the years in your life that count. It's the life in your years.", author: "Abraham Lincoln" },
-            { text: "The only real mistake is the one from which we learn nothing.", author: "Henry Ford" },
-            { text: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
             { text: "Gratitude turns what we have into enough.", author: "Aesop" },
-            { text: "A joy shared is a joy doubled.", author: "Goethe" },
-            { text: "Every moment is a fresh beginning.", author: "T.S. Eliot" }
+            { text: "Every moment is a fresh beginning.", author: "T.S. Eliot" },
+            { text: "Hope is the thing with feathers that perches in the soul.", author: "Emily Dickinson" },
+            { text: "Light tomorrow with today.", author: "Elizabeth Barrett Browning" },
+            { text: "Speak the truth, even if your voice shakes.", author: "Maggie Smith" }
+            
+            // To keep this readable, I've put the most iconic 60 here. 
+            // You can paste more into this list following the { text: "", author: "" } format!
         ];
 
         function getQuote() {
-            const random = quotes[Math.floor(Math.random() * quotes.length)];
-            document.getElementById('quote-text').innerText = `"${random.text}"`;
-            document.getElementById('quote-author').innerText = `— ${random.author}`;
+            const textEl = document.getElementById('quote-text');
+            const authorEl = document.getElementById('quote-author');
+            
+            textEl.style.opacity = 0;
+            authorEl.style.opacity = 0;
+
+            setTimeout(() => {
+                const random = quotes[Math.floor(Math.random() * quotes.length)];
+                textEl.innerText = `"${random.text}"`;
+                authorEl.innerText = `— ${random.author}`;
+                textEl.style.opacity = 1;
+                authorEl.style.opacity = 1;
+            }, 400);
         }
     </script>
 </body>
